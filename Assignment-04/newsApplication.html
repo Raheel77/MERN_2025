@@ -116,9 +116,9 @@
         try {
             let inputVal = document.getElementById("input-val").value;
             const getData = await fetch(`https://newsapi.org/v2/everything?q=${inputVal}&from=2025-11-19&sortBy=publishedAt&apiKey=a8f4059b475542f6b2184b012a961ff2 `);
-console.log(inputVal,getData);
             const getResp = await getData.json();
 
+            console.log(inputVal,getResp);
             let cardHtml = "";
 
             if (getResp.articles.length) {
