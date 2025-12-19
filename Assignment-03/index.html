@@ -1,195 +1,193 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>🛒 Assignment: The "Unified Inventory" Challenge</title>
+  <head>
+    <meta charset="UTF-8" />
+    <title>🛒 Assignment: The "Unified Inventory" Challenge</title>
 
-<style>
-  body {
-    font-family: "Segoe UI", sans-serif;
-    background: linear-gradient(135deg, #667eea, #764ba2);
-    margin: 0;
-    padding: 30px;
-    color: #333;
-  }
+    <style>
+      body {
+        font-family: "Segoe UI", sans-serif;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        margin: 0;
+        padding: 30px;
+        color: #333;
+      }
 
-  h1 {
-    text-align: center;
-    color: #fff;
-    margin-bottom: 30px;
-  }
+      h1 {
+        text-align: center;
+        color: #fff;
+        margin-bottom: 30px;
+      }
 
-  .step {
-    background: #ffffff;
-    border-radius: 12px;
-    padding: 20px;
-    margin-bottom: 25px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-  }
+      .step {
+        background: #ffffff;
+        border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 25px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+      }
 
-  .step h2 {
-    margin-top: 0;
-    color: #5a67d8;
-    border-left: 6px solid #5a67d8;
-    padding-left: 10px;
-  }
+      .step h2 {
+        margin-top: 0;
+        color: #5a67d8;
+        border-left: 6px solid #5a67d8;
+        padding-left: 10px;
+      }
 
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 15px;
-  }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 15px;
+      }
 
-  th, td {
-    padding: 10px;
-    text-align: left;
-  }
+      th,
+      td {
+        padding: 10px;
+        text-align: left;
+      }
 
-  th {
-    background: #5a67d8;
-    color: white;
-  }
+      th {
+        background: #5a67d8;
+        color: white;
+      }
 
-  tr:nth-child(even) {
-    background: #f3f4f6;
-  }
+      tr:nth-child(even) {
+        background: #f3f4f6;
+      }
 
-  .total-box {
-    font-size: 22px;
-    font-weight: bold;
-    color: #2f855a;
-    text-align: center;
-    padding: 15px;
-    background: #e6fffa;
-    border-radius: 10px;
-  }
+      .total-box {
+        font-size: 22px;
+        font-weight: bold;
+        color: #2f855a;
+        text-align: center;
+        padding: 15px;
+        background: #e6fffa;
+        border-radius: 10px;
+      }
 
-  footer {
-    text-align: center;
-    color: #eee;
-    margin-top: 20px;
-  }
-</style>
-</head>
+      footer {
+        text-align: center;
+        color: #eee;
+        margin-top: 20px;
+      }
+    </style>
+  </head>
 
-<body>
+  <body>
+    <h1>🛒 Assignment: The "Unified Inventory" Challenge</h1>
 
-<h1>🛒 Assignment: The "Unified Inventory" Challenge</h1>
+    <div class="step">
+      <h2>Step 1: Merge the Arrays</h2>
 
-<div class="step">
-  <h2>Step 1: Merge the Arrays</h2>
+      <table id="unifiedTable">
+        <tr>
+          <th>Product</th>
+          <th>Price ($)</th>
+          <th>Stock</th>
+        </tr>
+      </table>
+    </div>
 
-  <table id="unifiedTable">
-    <tr>
-      <th>Product</th>
-      <th>Price ($)</th>
-      <th>Stock</th>
-    </tr>
-  </table>
-</div>
+    <div class="step">
+      <h2>Step 2: Clean the Data (Filter)</h2>
+      <table id="stockTable">
+        <tr>
+          <th>Product</th>
+          <th>Price ($)</th>
+          <th>Stock</th>
+        </tr>
+      </table>
+    </div>
 
+    <div class="step">
+      <h2>Step 3: Apply a Price Adjustment (Map)</h2>
+      <table id="discountTable">
+        <tr>
+          <th>Product</th>
+          <th>Discounted Price ($)</th>
+          <th>Stock</th>
+        </tr>
+      </table>
+    </div>
 
-<div class="step">
-  <h2>Step 2: Clean the Data (Filter)</h2>
-  <table id="stockTable">
-    <tr>
-      <th>Product</th>
-      <th>Price ($)</th>
-      <th>Stock</th>
-    </tr>
-  </table>
-</div>
+    <div class="step">
+      <h2>Step 4: Calculate Total Value (Reduce)</h2>
+      <div class="total-box" id="totalValue"></div>
+    </div>
 
-<div class="step">
-  <h2>Step 3: Apply a Price Adjustment (Map)</h2>
-  <table id="discountTable">
-    <tr>
-      <th>Product</th>
-      <th>Discounted Price ($)</th>
-      <th>Stock</th>
-    </tr>
-  </table>
-</div>
+    <script>
+      const mainStoreInventory = [
+        { name: "Laptop", price: 1200, stock: 5 },
+        { name: "Mouse", price: 25, stock: 0 },
+        { name: "Keyboard", price: 100, stock: 12 },
+      ];
 
-<div class="step">
-  <h2>Step 4: Calculate Total Value (Reduce)</h2>
-  <div class="total-box" id="totalValue"></div>
-</div>
+      const acquiredStoreInventory = [
+        { name: "Monitor", price: 300, stock: 8 },
+        { name: "Headphones", price: 50, stock: 0 },
+        { name: "Webcam", price: 75, stock: 20 },
+      ];
 
-<script>
+      const unifiedInventory = [
+        ...mainStoreInventory,
+        ...acquiredStoreInventory,
+      ];
 
-const mainStoreInventory = [
-    { name: "Laptop", price: 1200, stock: 5 },
-    { name: "Mouse", price: 25, stock: 0 },
-    { name: "Keyboard", price: 100, stock: 12 }
-];
+      const unifiedTable = document.getElementById("unifiedTable");
 
-const acquiredStoreInventory = [
-    { name: "Monitor", price: 300, stock: 8 },
-    { name: "Headphones", price: 50, stock: 0 },
-    { name: "Webcam", price: 75, stock: 20 }
-];
-
-const unifiedInventory = [...mainStoreInventory, ...acquiredStoreInventory];
-
-
-const unifiedTable = document.getElementById("unifiedTable");
-
-unifiedInventory.forEach(item => {
-  unifiedTable.innerHTML += `
-    <tr>
-      <td>${item.name}</td>
-      <td>${item.price}</td>
-      <td>${item.stock}</td>
-    </tr>
-  `;
-});
-
-
-const inStockItems = unifiedInventory.filter((element) => {
-    return element.stock !== 0;
-});
-
-const discountedInventory = inStockItems.map((items,index,array) => {
-    const tenPercent = (items.price / 100) * 10;
-    const discountedPrice = items.price - tenPercent ;
-    const discountedItem = {
-        ...items,
-        price: discountedPrice
-    };
-    return discountedItem;
-});
-
-const totalValue = discountedInventory.reduce((sum, item) => {
-    return sum + (item.price * item.stock);
-}, 0);
-
-
-const stockTable = document.getElementById("stockTable");
-inStockItems.forEach(item => {
-  stockTable.innerHTML += `
+      unifiedInventory.forEach((item) => {
+        unifiedTable.innerHTML += `
     <tr>
       <td>${item.name}</td>
       <td>${item.price}</td>
       <td>${item.stock}</td>
     </tr>
   `;
-});
+      });
 
-const discountTable = document.getElementById("discountTable");
-discountedInventory.forEach(item => {
-  discountTable.innerHTML += `
+      const inStockItems = unifiedInventory.filter((element) => {
+        return element.stock !== 0;
+      });
+
+      const discountedInventory = inStockItems.map((items, index, array) => {
+        const tenPercent = (items.price / 100) * 10;
+        const discountedPrice = items.price - tenPercent;
+        const discountedItem = {
+          ...items,
+          price: discountedPrice,
+        };
+        return discountedItem;
+      });
+
+      const totalValue = discountedInventory.reduce((sum, item) => {
+        return sum + item.price * item.stock;
+      }, 0);
+
+      const stockTable = document.getElementById("stockTable");
+      inStockItems.forEach((item) => {
+        stockTable.innerHTML += `
     <tr>
       <td>${item.name}</td>
       <td>${item.price}</td>
       <td>${item.stock}</td>
     </tr>
   `;
-});
+      });
 
-document.getElementById("totalValue").innerText =
-  `Total Inventory Value: $${totalValue}`;
-</script>
+      const discountTable = document.getElementById("discountTable");
+      discountedInventory.forEach((item) => {
+        discountTable.innerHTML += `
+    <tr>
+      <td>${item.name}</td>
+      <td>${item.price}</td>
+      <td>${item.stock}</td>
+    </tr>
+  `;
+      });
 
-</body>
+      document.getElementById(
+        "totalValue"
+      ).innerText = `Total Inventory Value: $${totalValue}`;
+    </script>
+  </body>
 </html>
