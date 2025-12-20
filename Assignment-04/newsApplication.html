@@ -110,49 +110,48 @@
 
 <script>
     // Async await
-    const callData = async () => {
-        const Cards = document.getElementById("Cards");
+        const callData = async () => {
+            const Cards = document.getElementById("Cards");
+            try {
+                let inputVal = document.getElementById("input-val").value;
+                const getData = await fetch(`https://newsapi.org/v2/everything?q=${inputVal}&from=2025-11-19&sortBy=publishedAt&apiKey=a8f4059b475542f6b2184b012a961ff2 `);
+                const getResp = await getData.json();
 
-        try {
-            let inputVal = document.getElementById("input-val").value;
-            const getData = await fetch(`https://newsapi.org/v2/everything?q=${inputVal}&from=2025-11-19&sortBy=publishedAt&apiKey=a8f4059b475542f6b2184b012a961ff2 `);
-            const getResp = await getData.json();
+                console.log(inputVal,getResp);
+                let cardHtml = "";
 
-            console.log(inputVal,getResp);
-            let cardHtml = "";
+                if (getResp.articles.length) {
+                    getResp.articles.forEach((news) => {
+                        cardHtml += `
+                  <div class="card m-2" style="width: 18rem">
+                    <img src="${news.urlToImage || "https://via.placeholder.com/300x200"}"
+                      class="card-img-top"
+                      style="height:200px; object-fit:cover;"
+                    />
+                    <div class="card-body">
+                      <h5 class="card-title">${news.title}</h5>
+                      <p class="card-text">${
+                            news.description || "No description available"
+                        }...</p>
+                    </div>
+                  </div>
+                `;
+                    });
 
-            if (getResp.articles.length) {
-                getResp.articles.forEach((news) => {
-                    cardHtml += `
-              <div class="card m-2" style="width: 18rem">
-                <img src="${news.urlToImage || "https://via.placeholder.com/300x200"}"
-                  class="card-img-top"
-                  style="height:200px; object-fit:cover;"
-                />
-                <div class="card-body">
-                  <h5 class="card-title">${news.title}</h5>
-                  <p class="card-text">${
-                        news.description || "No description available"
-                    }...</p>
-                </div>
-              </div>
-            `;
-                });
-
-                Cards.innerHTML = cardHtml;
-            } else {
+                    Cards.innerHTML = cardHtml;
+                } else {
+                    Cards.innerHTML = `
+                <div class="alert alert-danger text-center w-100">
+                  No result found for <b>${inputVal}</b>
+                </div>`;
+                }
+            } catch (error) {
                 Cards.innerHTML = `
-            <div class="alert alert-danger text-center w-100">
-              No result found for <b>${inputVal}</b>
-            </div>`;
+              <div class="alert alert-danger w-100 text-center">
+                Something went wrong. Try again later.
+              </div>`;
             }
-        } catch (error) {
-            Cards.innerHTML = `
-          <div class="alert alert-danger w-100 text-center">
-            Something went wrong. Try again later.
-          </div>`;
-        }
-    };
+        };
 </script>
 </body>
 </html>
