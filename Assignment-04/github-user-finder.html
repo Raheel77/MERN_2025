@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>GitHub User Finder</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            color: #fff;
+        }
+
+        .app {
+            width: 100%;
+            max-width: 420px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(14px);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .search {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .search input {
+            flex: 1;
+            padding: 12px 16px;
+            border-radius: 30px;
+            border: none;
+            outline: none;
+        }
+
+        .search button {
+            border: none;
+            background: #00feba;
+            color: #000;
+            border-radius: 30px;
+            padding: 12px 18px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .profile {
+            text-align: center;
+        }
+
+        .profile img {
+            width: 120px;
+            border-radius: 50%;
+            margin-bottom: 10px;
+            border: 4px solid #00feba;
+        }
+
+        .name {
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .username {
+            opacity: 0.8;
+            margin-bottom: 10px;
+        }
+
+        .bio {
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 15px;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat h3 {
+            margin: 0;
+        }
+
+        .links p {
+            font-size: 14px;
+            margin: 6px 0;
+        }
+
+        .links a {
+            color: #00feba;
+            text-decoration: none;
+        }
+
+        .error {
+            text-align: center;
+            background: rgba(255,0,0,0.2);
+            padding: 10px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="app">
+    <h1>GitHub User Finder</h1>
+
+    <div class="search">
+        <input
+                type="text"
+                id="input-val"
+                placeholder="Enter GitHub username"
+        />
+        <button onclick="findUser()">Search</button>
+    </div>
+
+    <div id="result"></div>
+</div>
+
+<script>
+    const findUser = async () => {
+        const result = document.getElementById("result");
+        const username = document.getElementById("input-val").value.trim();
+
+        if (!username) {
+            result.innerHTML = `
+          <div class="error">Please enter a username</div>`;
+            return;
+        }
+
+        try {
+            const res = await fetch(`https://api.github.com/users/${username}`);
+
+            if (!res.ok) {
+                result.innerHTML = `
+            <div class="error">User not found</div>`;
+                return;
+            }
+
+            const user = await res.json();
+
+            result.innerHTML = `
+          <div class="profile">
+            <img src="${user.avatar_url}" />
+            <div class="name">${user.name || "No name"}</div>
+            <div class="username">@${user.login}</div>
+            <div class="bio">${user.bio || "No bio available"}</div>
+
+            <div class="stats">
+              <div class="stat">
+                <h3>${user.followers}</h3>
+                <p>Followers</p>
+              </div>
+              <div class="stat">
+                <h3>${user.following}</h3>
+                <p>Following</p>
+              </div>
+              <div class="stat">
+                <h3>${user.public_repos}</h3>
+                <p>Repos</p>
+              </div>
+            </div>
+
+            <div class="links">
+              <p>📍 ${user.location || "Not available"}</p>
+              <p>🏢 ${user.company || "Not available"}</p>
+              <p>
+                🔗 <a href="${user.html_url}" target="_blank">
+                  View GitHub Profile
+                </a>
+              </p>
+            </div>
+          </div>
+        `;
+        } catch (error) {
+            result.innerHTML = `
+          <div class="error">Something went wrong</div>`;
+        }
+    };
+</script>
+
+</body>
+</html>

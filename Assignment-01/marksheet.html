@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Marksheet</title>
+</head>
+<body>
+
+<script>
+    let english = 59;
+    let math = 82;
+    let science = 68;
+    let computer = 79;
+    let urdu = 75;
+
+    const totalSubjects = 5;
+    const maxMarksPerSubject = 100;
+    const maxTotal = totalSubjects * maxMarksPerSubject;
+
+
+    let total = english + math + science + computer + urdu;
+    let percentage = (total / maxTotal) * 100;
+
+     let grade =
+        (percentage >= 80) ? "A+"
+            : (percentage >= 70) ? "A"
+            : (percentage >= 60) ? "B"
+                : (percentage >= 50) ? "C"
+                    : "Fail";
+
+    document.write(`
+        <h2>Student Marksheet</h2>
+        English: ${english} <br>
+        Math: ${math} <br>
+        Science: ${science} <br>
+        Computer: ${computer} <br>
+        Urdu: ${urdu} <br><hr>
+
+        <b>Total Marks:</b> ${total} / ${maxTotal} <br>
+        <b>Percentage:</b> ${percentage.toFixed(2)}% <br>
+        <b>Grade:</b> ${grade}
+    `);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,176 @@
+<html>
+  <head>
+    <title>Cards</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        font-family: sans-serif;
+        box-sizing: border-box;
+      }
+
+      body {
+        background: #222;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+
+      .card {
+        width: 90%;
+        max-width: 470px;
+        background: linear-gradient(135deg, #00feba, #5b548a);
+        color: #fff;
+        margin: auto;
+        border-radius: 20px;
+        padding: 40px 35px;
+        text-align: center;
+      }
+
+      .search {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        margin-bottom: 30px;
+      }
+
+      .search input {
+        border: 0;
+        outline: 0;
+        background: #ebfffc;
+        color: #555;
+        padding: 10px 25px;
+        height: 60px;
+        border-radius: 30px;
+        flex: 1;
+        margin-right: 16px;
+        font-size: 18px;
+      }
+
+      .search button {
+        border: 0;
+        outline: 0;
+        background: #ebfffc;
+        border-radius: 50%;
+        width: 60px;
+        height: 60px;
+        cursor: pointer;
+      }
+
+      .search button img {
+        width: 16px;
+      }
+
+      .weather-icon {
+        width: 170px;
+        margin-top: 30px;
+      }
+
+      .weather h1 {
+        font-size: 80px;
+        font-weight: 500;
+      }
+
+      .weather h2 {
+        font-size: 45px;
+        font-weight: 400;
+        margin-top: -10px;
+      }
+
+      .details {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 20px;
+        margin-top: 50px;
+      }
+
+      .col {
+        display: flex;
+        align-items: center;
+        text-align: left;
+      }
+
+      .col img {
+        width: 40px;
+        margin-right: 10px;
+      }
+
+      .humidity, .wind {
+        font-size: 28px;
+        font-weight: 500;
+      }</style>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="card">
+        <div class="search">
+          <input
+            id="input-val"
+            type="text"
+            placeholder="Enter city name"
+            value="karachi"
+            spellcheck="false"
+          />
+          <button onclick="callData()">Search</button>
+        </div>
+        <div id="Cards"></div>
+      </div>
+    </div>
+  </body>
+
+  <script >
+    // Async await
+    const callData = async () => {
+      const Cards = document.getElementById("Cards");
+
+      try {
+        let inputVal = document.getElementById("input-val").value;
+        console.log(inputVal);
+        const API_KEY = "c0ef75261a97cb8945e927fb43a01d09";
+        const getData = await fetch(
+                `https://api.openweathermap.org/data/2.5/weather?q=${inputVal}&appid=${API_KEY}&units=metric`
+        );
+        const getResp = await getData.json();
+        console.log(getResp);
+        let { main, weather,name ,wind} = getResp;
+        let icon =
+                "https://openweathermap.org/img/wn/" + weather[0].icon + "@2x.png";
+        const cardHtml = `
+       <div class="weather">
+          <img src="${icon}" class="weather-icon" alt="weather icon" />
+          <h1 class="temp">${main.temp}</h1>
+          <h2 class="city">${name}</h2>
+          <div class="details">
+            <div class="col">
+              <div>
+                <p class="humidity">${main.humidity}</p>
+                <p>Humidity</p>
+              </div>
+            </div>
+            <div class="col">
+              <div>
+                <p class="wind">${wind.speed} km/h</p>
+                <p>Wind Speed</p>
+              </div>
+            </div>
+          </div>
+
+      `;
+
+        Cards.innerHTML = cardHtml;
+      } catch (error) {
+        console.log("Error:", error);
+      }
+    };
+
+  </script>
+</html>
