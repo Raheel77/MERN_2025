@@ -1,0 +1,96 @@
+/* Basic Styling */
+body {
+  font-family: "Segoe UI", sans-serif;
+  background: #f0f2f5;
+  /*display: flex;*/
+  /*justify-content: center;*/
+  /*padding-top: 50px;*/
+  text-align: center;
+}
+
+.todo-container {
+  background: white;
+  width: 600px;
+  margin: 100px auto;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.input-group {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+input {
+  flex: 1;
+  padding: 10px;
+  border: 2px solid #ddd;
+  border-radius: 6px;
+  outline: none;
+}
+
+#add-btn {
+  width: 100%;
+  margin-top: 10px;
+}
+
+button {
+  padding: 10px 15px;
+  background: #5c67f2;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  background: #4a54e1;
+}
+
+/* List Item Styles */
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  background: #fff;
+  border: 1px solid #eee;
+  padding: 12px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  /* Animation Trigger */
+  animation: slideIn 0.4s ease forwards;
+}
+
+/* Slide-in Animation */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Class for deleting items */
+.fall {
+  transition: 0.4s;
+  transform: translateY(20px);
+  opacity: 0;
+}
+
+.delete-btn {
+  background: #ff4d4d;
+  font-size: 12px;
+  padding: 5px 8px;
+}
