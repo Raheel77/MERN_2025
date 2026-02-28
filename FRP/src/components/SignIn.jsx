@@ -65,11 +65,6 @@ export default function SignIn() {
         if (savedDark) setDarkMode(savedDark);
     }, []);
 
-    // Save dark mode to localStorage
-    useEffect(() => {
-        localStorage.setItem("darkMode", JSON.stringify(darkMode));
-    }, [darkMode]);
-
     return (
         <div className={darkMode ? "dark bg-gray-900" : ""}>
             <div className="relative p-6 bg-white dark:bg-gray-900 sm:p-0">

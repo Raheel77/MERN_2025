@@ -1,14 +1,27 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import { SunIcon, MoonIcon } from "@heroicons/react/24/outline";
 
 export default function Header() {
     const [sidebarToggle, setSidebarToggle] = useState(false);
     const [menuToggle, setMenuToggle] = useState(false);
     const [darkMode, setDarkMode] = useState(false);
-    const [notificationOpen, setNotificationOpen] = useState(false);
     const [userOpen, setUserOpen] = useState(false);
 
-    return (<header className="sticky top-0 z-[99999] flex w-full border-gray-200 bg-white lg:border-b dark:border-gray-800 dark:bg-gray-900">
+    useEffect(() => {
+        localStorage.setItem("darkMode", JSON.stringify(darkMode));
+
+        if (darkMode) {
+            document.body.classList.add("dark", "bg-gray-900");
+            document.body.classList.remove("bg-white");
+        } else {
+            document.body.classList.remove("dark", "bg-gray-900");
+            document.body.classList.add("bg-white");
+        }
+    }, [darkMode]);
+
+
+
+    return (<header className="sticky top-0 z-[99999]- flex w-full border-gray-200 bg-white lg:border-b dark:border-gray-800 dark:bg-gray-900">
         <div className="flex grow flex-col items-center justify-between lg:flex-row lg:px-6">
             <div className="flex w-full items-center justify-between gap-2 border-b border-gray-200 px-3 py-3 lg:border-b-0 dark:border-gray-800">
                 <button onClick={() => setSidebarToggle(!sidebarToggle)} className={`flex h-10 w-10 items-center justify-center rounded-lg border text-gray-500 dark:border-gray-800 dark:text-gray-400 ${sidebarToggle ? "bg-gray-100 dark:bg-gray-800" : ""}`}>☰</button>

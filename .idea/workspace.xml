@@ -32,11 +32,13 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="vcs.Git" />
+    <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -44,6 +46,7 @@
       <recent name="F:\Work\Work\Jawan Progm\Assignment\Assignment-04" />
     </key>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -80,6 +83,7 @@
       <workItem from="1768719395170" duration="1217000" />
       <workItem from="1769019457591" duration="122000" />
       <workItem from="1769019583597" duration="391000" />
+      <workItem from="1772043260905" duration="455000" />
     </task>
     <task id="LOCAL-00001" summary="Assignemnt 2">
       <created>1765224216310</created>
@@ -172,11 +176,18 @@
       <option name="project" value="LOCAL" />
       <updated>1766838957547</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Learning mangement System">
+      <created>1772043523451</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1772043523451</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="2" />
+    <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
@@ -186,17 +197,18 @@
     <MESSAGE value="Assignemnt 4" />
     <MESSAGE value="Assignemnt 5" />
     <MESSAGE value="Assignemnt 6" />
-    <option name="LAST_COMMIT_MESSAGE" value="Assignemnt 6" />
+    <MESSAGE value="Learning mangement System" />
+    <option name="LAST_COMMIT_MESSAGE" value="Learning mangement System" />
   </component>
   <component name="WindowStateProjectService">
     <state x="137" y="19" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1765006762113">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="137" y="19" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1366.728@0.0.1366.728" timestamp="1765006762113" />
-    <state x="55" y="217" width="1300" height="511" key="CommitChangelistDialog2" timestamp="1766838955443">
+    <state x="55" y="217" width="1300" height="511" key="CommitChangelistDialog2" timestamp="1772043520054">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="55" y="217" width="1300" height="511" key="CommitChangelistDialog2/0.0.1366.728@0.0.1366.728" timestamp="1766838955443" />
+    <state x="55" y="217" width="1300" height="511" key="CommitChangelistDialog2/0.0.1366.728@0.0.1366.728" timestamp="1772043520054" />
     <state x="235" y="-10" width="1182" height="544" maximized="true" key="DiffContextDialog" timestamp="1768409039140">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -213,10 +225,10 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="552" y="386" key="VCS.ChangelistChooser/0.0.1366.728@0.0.1366.728" timestamp="1766218312948" />
-    <state x="275" y="97" key="Vcs.Push.Dialog.v2" timestamp="1766218470431">
+    <state x="468" y="70" key="Vcs.Push.Dialog.v2" timestamp="1772043616740">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="275" y="97" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1766218470431" />
+    <state x="468" y="70" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1772043616740" />
     <state x="492" y="278" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1765006756334">
       <screen x="0" y="0" width="1366" height="728" />
     </state>

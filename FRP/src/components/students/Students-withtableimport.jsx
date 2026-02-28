@@ -4,6 +4,7 @@ import Header from "../partial/Header";
 import {db} from "../../config/firebase";
 import {collection, getDocs, deleteDoc, doc, updateDoc} from "firebase/firestore";
 import DataTable from "../partial/Table";
+import {toast} from "react-toastify";
 export default function Students() {
     const [data, setData] = useState([]);
     const [darkMode, setDarkMode] = useState(false);
@@ -71,10 +72,22 @@ export default function Students() {
                 section: sectionU,
             };
             await updateDoc(doc(db, "studentData", student.id), userObject);
-            console.log("Data Update successfully");
+            // console.log("Data Update successfully");
             setData(data.map((updatedData) => updatedData.id === student.id ? {...updatedData, ...userObject} : updatedData));
+            toast.success("Data Update successfully", {
+                position: "top-right",
+                autoClose: 5000,
+                theme: "light",
+            });
+
         } catch (error) {
             console.log("Error:", error);
+            toast.success("Error on Update", {
+                position: "top-right",
+                autoClose: 5000,
+                theme: "light",
+            });
+
         }
     };
     useEffect(() => {
