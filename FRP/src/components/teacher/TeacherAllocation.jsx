@@ -133,9 +133,9 @@ export default function TeacherAllocation() {
                             </div>
                             <div className="col-span-12 md:col-span-2">
                                 <Input
-                                    label="Subject"
+                                    label="Syllabus"
                                     name="subject"
-                                    placeholder="Enter your Subject"
+                                    placeholder="Enter your Syllabus"
                                     OnChange={handleChange}
                                     type="text"
                                 />

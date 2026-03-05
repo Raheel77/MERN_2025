@@ -16,6 +16,12 @@ import TeacherAllocation from "./components/teacher/TeacherAllocation";
 import BasicDashboard from "./components/Basic/BasicDashboard";
 import Subject from "./components/subject/Subject";
 import Subjects_Registration from "./components/subject/Subjects_Registration";
+import Syllabus from "./components/syllabus/Syllabus";
+import Syllabus_Registration from "./components/syllabus/Syllabus_Registration";
+import CLassList from "./components/Class/CLassList";
+import FeeVoucher from "./components/fee/FeeVoucher";
+import FeeStructure from "./components/fee/FeeStructure";
+import FeeSubmission from "./components/fee/FeeSubmission";
 
 function App() {
     return (
@@ -30,13 +36,20 @@ function App() {
                         <Route path="/" element={<Home/>}/>
                         <Route path="/register-student" element={<Students_Registration/>}/>
                         <Route path="/students" element={<Students/>}/>
-
                         <Route path="/register-subject" element={<Subjects_Registration/>}/>
-                        <Route path="/subject" element={<Subject/>}/>
-
+                        <Route path="/subjects" element={<Subject/>}/>
                         <Route path="/register-teacher" element={<Teacher_Registration/>}/>
                         <Route path="/teacher" element={<Teacher/>}/>
                         <Route path="/teacher-allocate" element={<TeacherAllocation/>}/>
+                        <Route path="/syllabus" element={<Syllabus/>}/>
+                        <Route path="/register-syllabus" element={<Syllabus_Registration/>}/>
+
+                        <Route path="/class-list" element={<CLassList/>}/>
+
+                        <Route path="/fee-structure" element={<FeeStructure/>}/>
+                        <Route path="/fee-submission" element={<FeeSubmission/>}/>
+                        <Route path="/fee-voucher" element={<FeeVoucher/>}/>
+
                     </Route>
                 </Route>
             </Routes>

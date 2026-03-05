@@ -4,30 +4,47 @@ import Header from "../partial/Header";
 import Input from "../partial/Input";
 import {collection, doc, getDocs, setDoc} from "firebase/firestore";
 import { SunIcon, MoonIcon } from "@heroicons/react/24/outline";
-
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import {db} from "../../config/firebase";
 import {toast} from "react-toastify";
 import {useNavigate} from "react-router";
 import {ListBulletIcon} from "@heroicons/react/16/solid";
-export default function Subjects_Registration() {
+export default function Syllabus_Registration() {
     const navigate = useNavigate()
     const [formData, setFormData] = useState({
         subjectCode: "",
         subjectName: "",
         subjectClass: "",
+        fileUrl: "",
+
     });
+    const [file, setFile] = useState(null);
     const savedata = async () => {
         try {
             const generateId = Math.random().toString(36).substr(2, 9);
-            setFormData({...formData, subjectCode : generateId});
-            await setDoc(doc(db, "subjectData", generateId), formData);
-            console.log("Data saved successfully");
-            toast.success("Syllabus added");
-            // navigate("/subjects");
+
+    let fileUrl = "";
+
+    if (file) {
+      const storage = getStorage();
+      const storageRef = ref(storage, `syllabusFiles/${generateId}_${file.name}`);
+
+      await uploadBytes(storageRef, file);
+      fileUrl = await getDownloadURL(storageRef);
+    }
+
+    await setDoc(doc(db, "syllabusData", generateId), {
+      subjectCode: generateId,
+      subjectName: formData.subjectName,
+      subjectClass: formData.subjectClass,
+      fileUrl: fileUrl,
+    });
+
+    toast.success("Syllabus added successfully");
 
         } catch (error) {
             console.log("Error:", error);
-            toast.success(error.message);
+    toast.error(error.message);
         }
     };
     const randomNumber = Math.floor(100 + Math.random() * 900);
@@ -56,22 +73,17 @@ export default function Subjects_Registration() {
                                 type="text"
                             />
                         </div>
-{/*
+
                         <div className="col-span-12 md:col-span-4">
-                            <Input
-                                label="Syllabus Code"
-                                placeholder={"Enter your Syllabus Code"}
-                                OnChange={(e) => {
-                                    setFormData({...formData, subjectCode: formData.subjectName +'_' + randomNumber});
-                                }}
-                                type="text"
-                                value={formData.subjectName
-                                    ? `${formData.subjectName}_${randomNumber}`
-                                    : ""}
+                            <label className="block mb-2 text-sm font-medium">
+                                Upload Syllabus File
+                            </label>
+                            <input
+                                type="file"
+                                onChange={(e) => setFile(e.target.files[0])}
+                                className="w-full p-2 border rounded-lg"
                             />
                         </div>
-*/}
-
                         <div className="col-span-12 md:col-span-4">
                             <Input
                                 label="Syllabus CLass"

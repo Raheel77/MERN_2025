@@ -82,7 +82,10 @@ export default function Students() {
                                      <tr key={student.id}>
                                          <td className="px-5 py-4 sm:px-6">
                                              <div className="flex items-center gap-3">
-                                                 <div className="w-10 h-10 flex items-center justify-center rounded-full bg-blue-500 text-white font-semibold">{student.fname.charAt(0).toUpperCase()}{student.lname.charAt(0).toUpperCase()}</div>
+                                                 <div className="w-10 h-10 flex items-center justify-center rounded-full bg-blue-500 text-white font-semibold">
+                                                     {student.fname.charAt(0).toUpperCase()}
+                                                     {student.lname.charAt(0).toUpperCase()}
+                                                 </div>
                                                  <div><span className="block font-medium text-gray-800 dark:text-white/90">{student.fname} {student.lname}</span><span className="block text-gray-500 text-xs dark:text-gray-400">{student.email}</span></div>
                                              </div>
                                          </td>

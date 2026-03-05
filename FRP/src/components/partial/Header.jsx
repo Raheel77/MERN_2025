@@ -30,7 +30,6 @@ export default function Header() {
                 <button onClick={() => setMenuToggle(!menuToggle)} className="lg:hidden h-10 w-10 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800">⋮</button>
             </div>
             <div className={`${menuToggle ? "flex" : "hidden"} lg:flex items-center gap-3 p-4`}>
-
                 <button
                     onClick={() => setDarkMode(!darkMode)}
                     className="h-10 w-10 flex items-center justify-center rounded-full border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 transition"

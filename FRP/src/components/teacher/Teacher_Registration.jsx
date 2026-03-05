@@ -88,8 +88,8 @@ export default function Teacher_Registration() {
                         </div>
                         <div className="col-span-12 md:col-span-4">
                             <Input
-                                label="Subject"
-                                placeholder={"Enter your Subject"}
+                                label="Syllabus"
+                                placeholder={"Enter your Syllabus"}
                                 OnChange={(e) => {
                                     setFormData({...formData, subject: e.target.value});
                                 }}

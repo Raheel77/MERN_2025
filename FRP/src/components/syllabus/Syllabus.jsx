@@ -5,7 +5,7 @@ import {db} from "../../config/firebase";
 import {collection, getDocs, deleteDoc, doc, updateDoc} from "firebase/firestore";
 import {useNavigate} from "react-router";
 import {toast} from "react-toastify";
-export default function Subject() {
+export default function Syllabus() {
     const navigate = useNavigate();
     const [data, setData] = useState([]);
     useEffect(() => {
