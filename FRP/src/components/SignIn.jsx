@@ -17,6 +17,8 @@ export default function SignIn() {
     const [rememberMe, setRememberMe] = useState(false);
     const [darkMode, setDarkMode] = useState(false);
 
+    const navigation = useNavigate();
+
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
 
@@ -107,12 +109,15 @@ export default function SignIn() {
                                     </button>
                                 </div>
                             </form>
-                            <div className="mt-5 text-sm text-center text-gray-700 dark:text-gray-400">Don't have an account?{" "}<a href="/signup" className="text-blue-500 hover:text-blue-600">Sign Up</a></div>
+                            <div className="mt-5 text-sm text-center text-gray-700 dark:text-gray-400">Don't have an account?{" "}<button onClick={()=> navigation("/signup")} className="text-blue-500 hover:text-blue-600">Sign Up</button></div>
                         </div>
                     </div>
                     {/* Right Side Panel */}
                     <div className="hidden lg:flex lg:w-1/2 items-center justify-center bg-blue-900 text-white">
-                        <div className="text-center max-w-xs"><h2 className="mb-4 text-2xl font-bold">Welcome Back 👋</h2><p className="text-sm opacity-80">Free and Open-Source Tailwind CSS Admin Dashboard Template</p></div>
+                        <div className="text-center max-w-xs">
+                            <h2 className="mb-4 text-2xl font-bold">Welcome Back 👋</h2>
+                            <p className="text-sm opacity-80">Sign in to continue your learning journey.
+                                Access your courses, track progress, and stay connected with your instructors.</p></div>
                     </div>
                     <button onClick={() => setDarkMode(!darkMode)} className="fixed bottom-6 right-6 h-14 w-14 rounded-full bg-blue-600 text-white">{darkMode ? "☀" : "🌙"}</button>
                 </div>

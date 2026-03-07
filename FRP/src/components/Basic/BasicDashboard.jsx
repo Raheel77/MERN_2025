@@ -5,15 +5,22 @@ import Header from "../partial/Header";
 const BasicDashboard = () => {
     const [darkMode, setDarkMode] = useState(false);
     const [sidebarToggle, setSidebarToggle] = useState(false);
+
+
+
+
+
+/*
     useEffect(() => {
         const saved = JSON.parse(localStorage.getItem("darkMode"));
         if (saved) setDarkMode(saved);
-        console.log('asdsad',saved);
-    }, []);
+        console.log('darkMode1',saved);
+    }, [darkMode]);
+*/
     return (
         <div className={darkMode ? "dark bg-gray-900" : ""}>
             <div className="flex h-screen overflow-hidden">
-                <Sidebar sidebarToggle={sidebarToggle} setSidebarToggle={setSidebarToggle}/>
+                <Sidebar sidebarToggle={sidebarToggle} setSidebarToggle={setSidebarToggle} darkMode={darkMode}/>
                 <div className="relative flex flex-col flex-1 overflow-y-auto">
                     <Header darkMode={darkMode} setDarkMode={setDarkMode} sidebarToggle={sidebarToggle} setSidebarToggle={setSidebarToggle}/>
                     <main>

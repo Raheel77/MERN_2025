@@ -1,10 +1,10 @@
 import React, {useState, useEffect} from "react";
 import {HomeIcon, UserIcon, UserPlusIcon, UsersIcon, AdjustmentsVerticalIcon, AcademicCapIcon, ChevronDownIcon, ListBulletIcon, BookOpenIcon, BookmarkSquareIcon, PaperAirplaneIcon, PaperClipIcon, CurrencyRupeeIcon, CurrencyDollarIcon, CursorArrowRippleIcon, NewspaperIcon,} from "@heroicons/react/24/outline";
 import {useNavigate, useLocation} from "react-router";
-export default function Sidebar() {
+export default function Sidebar({darkMode,sidebarToggle}) {
     const navigate = useNavigate();
     const location = useLocation();
-    const [openMenu, setOpenMenu] = useState(null);/* ✅ Open menu automatically based on route*/
+    const [openMenu, setOpenMenu] = useState(null);
     useEffect(() => {
         if (location.pathname.includes("student")) setOpenMenu("students");
         else if (location.pathname.includes("teacher")) setOpenMenu("teachers");
@@ -12,8 +12,14 @@ export default function Sidebar() {
     const toggleMenu = (menu) => {
         setOpenMenu(openMenu === menu ? null : menu);
     };
+
+
     const activeClass = (path) => location.pathname === path ? "bg-blue-100 text-blue-600 font-semibold" : "text-gray-600 hover:bg-blue-50 hover:text-blue-600";
-    return (<aside className="w-64 h-screen bg-white border-r border-gray-200 p-4 overflow-auto">
+    return (<aside  className={`w-64 h-screen p-4 overflow-auto 
+  ${darkMode
+        ? "bg-gray-900 border-r border-gray-800 text-white"
+        : "bg-white border-r border-gray-200 text-gray-800"
+    }`}>
         <h1 className="text-gray-800 text-2xl font-bold mb-8">Dashboard</h1>
         <button onClick={() => navigate("/")} className={`w-full flex items-center gap-3 p-3 mb-2 rounded-lg transition ${activeClass("/")}`}><HomeIcon className="w-5 h-5"/>Dashboard</button>
         <button onClick={() => toggleMenu("students")} className="w-full flex justify-between items-center p-3 rounded-lg text-gray-600 hover:bg-blue-50">

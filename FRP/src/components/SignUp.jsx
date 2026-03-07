@@ -3,6 +3,7 @@ import Input from "./partial/Input";
 import { auth } from "../config/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { ToastContainer, toast } from "react-toastify";
+import {useNavigate} from "react-router-dom";
 
 const SignUp = () => {
     const [darkMode, setDarkMode] = useState(false);
@@ -14,6 +15,8 @@ const SignUp = () => {
         email: "",
         password: "",
     });
+    const navigation = useNavigate();
+
     let handleSubmit = (e)=>{
         e.preventDefault();
         console.log("Signup Data:", formData);
@@ -145,18 +148,22 @@ const SignUp = () => {
 
                             <p className="mt-5 text-sm text-center text-gray-600 dark:text-gray-400">
                                 Already have an account?{" "}
-                                <a href="/signin" className="text-blue-600">
+                                <button onClick={()=> navigation("/signin")} className="text-blue-600">
                                     Sign In
-                                </a>
+                                </button>
                             </p>
                         </div>
                     </div>
 
                     {/* RIGHT SIDE */}
-                    <div className="hidden lg:flex items-center justify-center w-1/2 bg-gray-100 dark:bg-gray-800">
-                        <p className="text-gray-500 dark:text-gray-300 text-center max-w-xs">
-                            Free and Open-Source Tailwind CSS Admin Dashboard Template
-                        </p>
+                    <div className="hidden lg:flex  items-center justify-center w-1/2 bg-gray-100 dark:bg-gray-800">
+<div>
+    <h2 className="mb-4 text-2xl font-bold">Start Your Learning Journey 🚀</h2>
+    <br/>
+
+    <p className="text-gray-500 dark:text-gray-300 text-center max-w-xs">Create an account to access courses, track your progress, and achieve your learning goals.</p>
+
+</div>
                     </div>
                 </div>
 
