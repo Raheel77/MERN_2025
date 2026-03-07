@@ -34,7 +34,7 @@ export default function Syllabus_Registration() {
     }
 
     await setDoc(doc(db, "syllabusData", generateId), {
-      subjectCode: generateId,
+      subjectCode: generateId,      
       subjectName: formData.subjectName,
       subjectClass: formData.subjectClass,
       fileUrl: fileUrl,

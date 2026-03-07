@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import {HomeIcon, UserIcon, UserPlusIcon, UsersIcon, AdjustmentsVerticalIcon, AcademicCapIcon, ChevronDownIcon, ListBulletIcon, BookOpenIcon, BookmarkSquareIcon, PaperAirplaneIcon, PaperClipIcon,} from "@heroicons/react/24/outline";
+import {HomeIcon, UserIcon, UserPlusIcon, UsersIcon, AdjustmentsVerticalIcon, AcademicCapIcon, ChevronDownIcon, ListBulletIcon, BookOpenIcon, BookmarkSquareIcon, PaperAirplaneIcon, PaperClipIcon, CurrencyRupeeIcon, CurrencyDollarIcon, CursorArrowRippleIcon, NewspaperIcon,} from "@heroicons/react/24/outline";
 import {useNavigate, useLocation} from "react-router";
 export default function Sidebar() {
     const navigate = useNavigate();
@@ -40,7 +40,7 @@ export default function Sidebar() {
                 </button>
             </div>)}
         <button onClick={() => toggleMenu("subject")} className="w-full flex justify-between items-center p-3 rounded-lg text-gray-600 hover:bg-blue-50">
-            <div className="flex gap-3"><AcademicCapIcon className="w-5 h-5"/>Subject</div>
+            <div className="flex gap-3"><BookOpenIcon className="w-5 h-5"/>Subject</div>
             <ChevronDownIcon className={`w-4 h-4 transition ${openMenu === "teachers" ? "rotate-180" : ""}`}/></button>
         {openMenu === "subject" && (
             <div className="ml-8 mt-2 space-y-2">
@@ -67,19 +67,35 @@ export default function Sidebar() {
                 className={`w-full flex items-center gap-3 p-2 rounded-lg transition ${activeClass("/class-list")}`}><ListBulletIcon className="w-4 h-4"/>Class list
         </button>
         <button onClick={() => toggleMenu("fees")} className="w-full flex justify-between items-center p-3 rounded-lg text-gray-600 hover:bg-blue-50">
-            <div className="flex gap-3"><PaperClipIcon className="w-5 h-5"/>Fees</div>
+            <div className="flex gap-3"><CurrencyDollarIcon className="w-5 h-5"/>Fees</div>
             <ChevronDownIcon className={`w-4 h-4 transition ${openMenu === "syllabus" ? "rotate-180" : ""}`}/></button>
         {openMenu === "fees" && (
             <div className="ml-8 mt-2 space-y-2">
                 <button onClick={() => navigate("/fee-structure")}
-                        className={`w-full flex items-center gap-3 p-2 rounded-lg transition ${activeClass("/fee-structure")}`}><PaperClipIcon className="w-4 h-4"/>Fee Structure
+                        className={`w-full flex items-center gap-3 p-2 rounded-lg transition ${activeClass("/fee-structure")}`}><CurrencyDollarIcon className="w-4 h-4"/>Fee Structure
                 </button>
                 <button onClick={() => navigate("/fee-submission")}
-                        className={`w-full flex items-center gap-3 p-2 rounded-lg transition ${activeClass("/fee-submission")}`}><BookmarkSquareIcon className="w-4 h-4"/>Fee Submission
+                        className={`w-full flex items-center gap-3 p-2 rounded-lg transition ${activeClass("/fee-submission")}`}><CurrencyDollarIcon className="w-4 h-4"/>Fee Submission
                 </button>
                 <button onClick={() => navigate("/fee-voucher")}
-                        className={`w-full flex items-center gap-3 p-2 rounded-lg transition ${activeClass("/fee-voucher")}`}><BookmarkSquareIcon className="w-4 h-4"/>Fee Voucher
+                        className={`w-full flex items-center gap-3 p-2 rounded-lg transition ${activeClass("/fee-voucher")}`}><CursorArrowRippleIcon className="w-4 h-4"/>Fee Voucher
                 </button>
+            </div>)}
+        <button onClick={() => toggleMenu("admission")} className="w-full flex justify-between items-center p-3 rounded-lg text-gray-600 hover:bg-blue-50">
+            <div className="flex gap-3"><NewspaperIcon className="w-5 h-5"/>Admission</div>
+            <ChevronDownIcon className={`w-4 h-4 transition ${openMenu === "syllabus" ? "rotate-180" : ""}`}/></button>
+        {openMenu === "admission" && (
+            <div className="ml-8 mt-2 space-y-2">
+                <button onClick={() => navigate("/register-student")} className={`w-full flex items-center gap-3 p-2 rounded-lg transition ${activeClass("/register-student")}`}><UserPlusIcon className="w-4 h-4"/>Register Student</button>
+                <button onClick={() => navigate("/register-teacher")} className={`w-full flex items-center gap-3 p-2 rounded-lg transition ${activeClass("/register-teacher")}`}><UserPlusIcon className="w-4 h-4"/>Register Teacher</button>
+            </div>)}
+        <button onClick={() => toggleMenu("exam")} className="w-full flex justify-between items-center p-3 rounded-lg text-gray-600 hover:bg-blue-50">
+            <div className="flex gap-3"><NewspaperIcon className="w-5 h-5"/>Exam</div>
+            <ChevronDownIcon className={`w-4 h-4 transition ${openMenu === "syllabus" ? "rotate-180" : ""}`}/></button>
+        {openMenu === "exam" && (
+            <div className="ml-8 mt-2 space-y-2">
+                <button onClick={() => navigate("/exam-schedule")} className={`w-full flex items-center gap-3 p-2 rounded-lg transition ${activeClass("/exam-schedule")}`}><UserPlusIcon className="w-4 h-4"/>Exam Schedule</button>
+                <button onClick={() => navigate("/exam-result")} className={`w-full flex items-center gap-3 p-2 rounded-lg transition ${activeClass("/exam-result")}`}><UserPlusIcon className="w-4 h-4"/>Exam Result</button>
             </div>)}
     </aside>);
 }

@@ -22,6 +22,8 @@ import CLassList from "./components/Class/CLassList";
 import FeeVoucher from "./components/fee/FeeVoucher";
 import FeeStructure from "./components/fee/FeeStructure";
 import FeeSubmission from "./components/fee/FeeSubmission";
+import ExamSchedule from "./components/Exam/ExamSchedule";
+import ExamResult from "./components/Exam/ExamResult";
 
 function App() {
     return (
@@ -47,8 +49,12 @@ function App() {
                         <Route path="/class-list" element={<CLassList/>}/>
 
                         <Route path="/fee-structure" element={<FeeStructure/>}/>
-                        <Route path="/fee-submission" element={<FeeSubmission/>}/>
+                        <Route path="/fee-submission" element={<FeeSubmission />} />
+                        <Route path="/fee-submission/:studentId" element={<FeeSubmission />} />
                         <Route path="/fee-voucher" element={<FeeVoucher/>}/>
+
+                        <Route path="/exam-schedule" element={<ExamSchedule />} />
+                        <Route path="/exam-result" element={<ExamResult />} />
 
                     </Route>
                 </Route>
