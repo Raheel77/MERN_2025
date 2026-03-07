@@ -53,6 +53,12 @@ export default function ExamSchedule() {
         });
         fetchExams();
     };
+    const groupedExams = classes.map((cls) => {
+        return {
+            className: cls,
+            exams: examList.filter((exam) => exam.className == cls)
+        };
+    });
     return (
         <div className="p-6">
             <div className="space-y-5 sm:space-y-6">
@@ -88,7 +94,7 @@ export default function ExamSchedule() {
                                         <Input
                                             label="Date"
                                             placeholder="Enter Date"
-                                            type="month"
+                                            type="date"
                                             name="date"
                                             value={schedule.date}
                                             OnChange={handleChange}
@@ -98,7 +104,7 @@ export default function ExamSchedule() {
                                         <Input
                                             label="Time"
                                             placeholder="Enter Time"
-                                            type="month"
+                                            type="time"
                                             name="time"
                                             value={schedule.time}
                                             OnChange={handleChange}
@@ -118,40 +124,48 @@ export default function ExamSchedule() {
                 </div>
             </div>
             <div className="mt-6">
-                <h3 className="font-semibold mb-3 text-lg">Exam Date Sheet</h3>
-                <div className="overflow-x-auto">
-                    <table className="min-w-full border border-gray-300 dark:border-gray-700 text-sm">
-                        <thead className="bg-gray-200 dark:bg-gray-800">
-                        <tr>
-                            <th className="border p-2">Class</th>
-                            <th className="border p-2">Subject</th>
-                            <th className="border p-2">Date</th>
-                            <th className="border p-2">Time</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {examList.map((exam) => {
-                            const subject = subjects.find(s => s.id === exam.subjectId);
-                            return (
-                                <tr key={exam.id} className="text-center hover:bg-gray-100 dark:hover:bg-gray-700">
-                                    <td className="border p-2">
-                                        Class {exam.className}
-                                    </td>
-                                    <td className="border p-2">
-                                        {subject?.subjectName}
-                                    </td>
-                                    <td className="border p-2">
-                                        {exam.date}
-                                    </td>
-                                    <td className="border p-2">
-                                        {exam.time}
-                                    </td>
+                <h3 className="font-semibold mb-4 text-lg">Exam Date Sheet</h3>
+                {groupedExams.map((group) => {
+                    if (group.exams.length === 0) return null;
+                    return (
+                        <div key={group.className} className="mb-6 border rounded-lg overflow-hidden">
+                            {/* Class Header */}
+                            <div className="bg-blue-500 text-white px-4 py-2 font-semibold">
+                                Class {group.className}
+                            </div>
+                            <table className="min-w-full text-sm">
+                                <thead className="bg-gray-200 dark:bg-gray-800">
+                                <tr>
+                                    <th className="border p-2">Subject</th>
+                                    <th className="border p-2">Date</th>
+                                    <th className="border p-2">Time</th>
                                 </tr>
-                            );
-                        })}
-                        </tbody>
-                    </table>
-                </div>
+                                </thead>
+                                <tbody>
+                                {group.exams.map((exam) => {
+                                    const subject = subjects.find(s => s.id === exam.subjectId);
+                                    return (
+                                        <tr
+                                            key={exam.id}
+                                            className="text-center hover:bg-gray-100 dark:hover:bg-gray-700"
+                                        >
+                                            <td className="border p-2">
+                                                {subject?.subjectName}
+                                            </td>
+                                            <td className="border p-2">
+                                                {new Date(exam.date).toLocaleDateString()}
+                                            </td>
+                                            <td className="border p-2">
+                                                {exam.time}
+                                            </td>
+                                        </tr>
+                                    );
+                                })}
+                                </tbody>
+                            </table>
+                        </div>
+                    );
+                })}
             </div>
         </div>
     );
