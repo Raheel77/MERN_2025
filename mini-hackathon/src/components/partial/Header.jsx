@@ -1,8 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { logout } from "../../store/slices/authSlice"; // make sure logout action is exported
+import { logout } from "../../store/slices/authSlice";
 import { useNavigate } from "react-router-dom";
-import { SunIcon, MoonIcon } from "@heroicons/react/24/solid";
+import {
+  SunIcon,
+  MoonIcon,
+  Bars3Icon,
+  ChevronDownIcon,
+  UserCircleIcon,
+} from "@heroicons/react/24/solid";
 
 export default function Header({
   darkMode,
@@ -10,8 +16,6 @@ export default function Header({
   sidebarToggle,
   setSidebarToggle,
 }) {
-  // const [sidebarToggle, setSidebarToggle] = useState(false);
-  // const [menuToggle, setMenuToggle] = useState(false);
   const [userOpen, setUserOpen] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -19,88 +23,128 @@ export default function Header({
   const user = useSelector((state) => state.auth.user);
   const role = useSelector((state) => state.auth.role);
 
-  console.log("Head", user);
   const handleLogout = () => {
     dispatch(logout());
     localStorage.removeItem("Auth_id");
     navigate("/signin");
   };
+
   return (
     <header
-      className={`sticky top-0 z-[99] flex w-full lg:border-b ${
+      className={`sticky top-0 z-[99] w-full border-b transition-colors duration-300 ${
         darkMode
           ? "bg-gray-900 border-gray-800 text-white"
           : "bg-white border-gray-200 text-gray-800"
       }`}
     >
-      <div className="flex grow flex-col items-center justify-between lg:flex-row lg:px-6">
-        <div className="flex w-full items-center justify-between gap-2 border-b border-gray-200 px-3 py-3 lg:border-b-0 dark-:border-gray-800">
-          {/* <button
+      <div className="flex h-16 items-center justify-between px-4 lg:px-8">
+        {/* Left Side: Toggle & Search */}
+        <div className="flex items-center gap-4 flex-1">
+          <button
             onClick={() => setSidebarToggle(!sidebarToggle)}
-            className={`flex h-10 w-10 items-center justify-center rounded-lg border text-gray-500 dark-:border-gray-800 dark-:text-gray-400 ${
-              sidebarToggle ? "bg-gray-100 dark-:bg-gray-800" : ""
-            }`}
+            className={`p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors`}
           >
-            ☰
-          </button> */}
-          <div className="hidden lg:block w-full">
+            <Bars3Icon className="w-6 h-6" />
+          </button>
+
+          <div className="hidden md:block w-full max-w-md">
             <input
               type="text"
-              placeholder="Search..."
-              className="h-11 w-full rounded-lg border border-gray-200 px-4 dark-:bg-gray-900 dark-:border-gray-800"
+              placeholder="Search products or orders..."
+              className={`h-10 w-full rounded-xl border px-4 outline-none focus:ring-2 focus:ring-blue-500 transition-all ${
+                darkMode
+                  ? "bg-gray-800 border-gray-700 placeholder-gray-500 text-white"
+                  : "bg-gray-50 border-gray-200 placeholder-gray-400"
+              }`}
             />
           </div>
-          <button
-            onClick={() => setSidebarToggle(!sidebarToggle)}
-            className="lg:hidden h-10 w-10 rounded-lg hover:bg-gray-100 dark-:hover:bg-gray-800"
-          >
-            ⋮
-          </button>
         </div>
 
-        <div
-          className={`${sidebarToggle ? "flex" : "hidden"} lg:flex items-center gap-3 p-4 w-[500px]`}
-        >
+        {/* Right Side: Actions & Profile */}
+        <div className="flex items-center gap-3">
+          {/* Dark Mode Toggle */}
           <button
             onClick={() => setDarkMode(!darkMode)}
-            className="h-10 w-10 flex items-center justify-center rounded-full border border-gray-300 dark-:border-gray-700 bg-white dark-:bg-gray-800 hover:bg-gray-100 dark-:hover:bg-gray-700 transition"
+            className={`h-10 w-10 flex items-center justify-center rounded-xl border transition-all ${
+              darkMode
+                ? "bg-gray-800 border-gray-700 text-yellow-400"
+                : "bg-white border-gray-200 text-gray-600 hover:bg-gray-50"
+            }`}
           >
             {darkMode ? (
-              <SunIcon className="w-5 h-5 text-yellow-500" />
+              <SunIcon className="w-5 h-5" />
             ) : (
-              <MoonIcon className="w-5 h-5 text-gray-700 dark-:text-gray-300" />
+              <MoonIcon className="w-5 h-5" />
             )}
           </button>
 
+          <div className="h-8 w-[1px] bg-gray-200 dark:bg-gray-700 mx-2 hidden sm:block"></div>
+
+          {/* User Dropdown */}
           <div className="relative">
             <button
               onClick={() => setUserOpen(!userOpen)}
-              className="flex items-center gap-2"
+              className="flex items-center gap-3 p-1.5 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-all"
             >
-              {/* <img
-                src="https://i.pravatar.cc/40"
-                alt="user"
-                className="rounded-full"
-              /> */}
-              <div className="flex flex-col text-left">
-                <span className="text-sm font-medium">
-                  {user?.displayName || user?.email || "Guest"}
+              <div className="h-9 w-9 rounded-lg bg-blue-600 flex items-center justify-center text-white shadow-lg shadow-blue-500/20">
+                <UserCircleIcon className="w-7 h-7" />
+              </div>
+              <div className="hidden sm:flex flex-col text-left leading-tight">
+                <span className="text-sm font-bold truncate max-w-[120px]">
+                  {user?.displayName || user?.email?.split("@")[0] || "User"}
                 </span>
-                <span className="text-xs text-gray-500 dark-:text-gray-400">
-                  {role || "No Role"}
+                <span className="text-[10px] uppercase tracking-wider font-black text-blue-500">
+                  {role || "Customer"}
                 </span>
               </div>
+              <ChevronDownIcon
+                className={`w-4 h-4 text-gray-400 transition-transform ${userOpen ? "rotate-180" : ""}`}
+              />
             </button>
 
             {userOpen && (
-              <div className="absolute right-0 mt-3 w-60 bg-white dark-:bg-gray-900 shadow-lg rounded-xl p-3">
-                <button
-                  className="block w-full text-left p-2 hover:bg-gray-100 dark-:hover:bg-gray-800"
-                  onClick={handleLogout}
+              <>
+                {/* Click Overlay to close dropdown */}
+                <div
+                  className="fixed inset-0 z-10"
+                  onClick={() => setUserOpen(false)}
+                ></div>
+
+                <div
+                  className={`absolute right-0 mt-3 w-56 shadow-2xl rounded-2xl p-2 z-20 border animate-in fade-in zoom-in-95 duration-100 ${
+                    darkMode
+                      ? "bg-gray-900 border-gray-800"
+                      : "bg-white border-gray-100"
+                  }`}
                 >
-                  Logout
-                </button>
-              </div>
+                  <div className="px-3 py-2 mb-2 border-b border-gray-100 dark:border-gray-800">
+                    <p className="text-[10px] text-gray-400 font-bold uppercase">
+                      Account
+                    </p>
+                  </div>
+
+                  <button
+                    onClick={handleLogout}
+                    className="flex w-full items-center gap-3 px-3 py-2.5 text-sm font-bold text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-xl transition-colors"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={2}
+                      stroke="currentColor"
+                      className="w-5 h-5"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9"
+                      />
+                    </svg>
+                    Logout
+                  </button>
+                </div>
+              </>
             )}
           </div>
         </div>

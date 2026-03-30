@@ -1,144 +1,136 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   HomeIcon,
-  UserIcon,
-  UserPlusIcon,
+  ShoppingBagIcon,
+  StarIcon,
+  PlusCircleIcon,
+  BuildingOfficeIcon,
   UsersIcon,
-  AdjustmentsVerticalIcon,
-  AcademicCapIcon,
-  ChevronDownIcon,
-  ListBulletIcon,
-  BookOpenIcon,
-  BookmarkSquareIcon,
-  PaperAirplaneIcon,
-  PaperClipIcon,
-  CurrencyRupeeIcon,
-  CurrencyDollarIcon,
-  CursorArrowRippleIcon,
-  NewspaperIcon,
+  ClipboardDocumentListIcon,
 } from "@heroicons/react/24/outline";
 import { useNavigate, useLocation } from "react-router";
+import { useSelector } from "react-redux";
+
 export default function Sidebar({ darkMode, sidebarToggle }) {
   const navigate = useNavigate();
   const location = useLocation();
-  const [openMenu, setOpenMenu] = useState(null);
-  useEffect(() => {
-    if (location.pathname.includes("student")) setOpenMenu("students");
-    else if (location.pathname.includes("teacher")) setOpenMenu("teachers");
-  }, [location.pathname]);
-  const toggleMenu = (menu) => {
-    setOpenMenu(openMenu === menu ? null : menu);
-  };
+
+  // Get the user role from Redux
+  const role = useSelector((state) => state.auth.role);
 
   const activeClass = (path) =>
     location.pathname === path
-      ? "bg-blue-100 text-blue-600 font-semibold"
+      ? "bg-blue-100 text-blue-600 font-semibold shadow-sm"
       : "text-gray-600 hover:bg-blue-50 hover:text-blue-600";
+
+  // Define logic for Admin access
+  const isAdmin = role?.toLowerCase() === "admin";
+  const isBranchManager = role?.toLowerCase() === "branch manager";
+
   return (
     <aside
-      className={`w-64 h-screen p-4 overflow-auto 
-  ${
-    darkMode
-      ? "bg-gray-900 border-r border-gray-800 text-white"
-      : "bg-white border-r border-gray-200 text-gray-800"
-  }`}
+      className={`w-64 h-screen p-4 overflow-auto transition-all duration-300
+      ${sidebarToggle ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}
+      ${
+        darkMode
+          ? "bg-gray-900 border-r border-gray-800 text-white"
+          : "bg-white border-r border-gray-200 text-gray-800"
+      }`}
     >
-      <h1 className="text-gray-800 text-2xl font-bold mb-8">Dashboard</h1>
-      <button
-        onClick={() => navigate("/")}
-        className={`w-full flex items-center gap-3 p-3 mb-2 rounded-lg transition ${activeClass("/")}`}
-      >
-        <HomeIcon className="w-5 h-5" />
-        Products
-      </button>
-      <button
-        onClick={() => navigate("/review")}
-        className={`w-full flex items-center gap-3 p-3 mb-2 rounded-lg transition ${activeClass("/")}`}
-      >
-        <HomeIcon className="w-5 h-5" />
-        Review
-      </button>
-      {/*<button onClick={() => toggleMenu("students")} className="w-full flex justify-between items-center p-3 rounded-lg text-gray-600 hover:bg-blue-50">
-            <div className="flex gap-3"><UserIcon className="w-5 h-5"/>Students</div>
-            <ChevronDownIcon className={`w-4 h-4 transition ${openMenu === "students" ? "rotate-180" : ""}`}/>
+      <div className="mb-8 px-2">
+        <h1
+          className={`text-2xl font-black ${darkMode ? "text-white" : "text-gray-800"}`}
+        >
+          FastFood<span className="text-blue-600">@PP</span>
+        </h1>
+        <p className="text-[10px] uppercase tracking-widest text-gray-400 font-bold">
+          {role || "User"} Portal
+        </p>
+      </div>
+
+      <nav className="space-y-2">
+        {/* --- COMMON PAGES --- */}
+        <button
+          onClick={() => navigate("/")}
+          className={`w-full flex items-center gap-3 p-3 rounded-xl transition ${activeClass("/")}`}
+        >
+          <HomeIcon className="w-5 h-5" />
+          Menu Catalog
         </button>
-        {openMenu === "students" && (
-            <div className="ml-8 mt-2 mb-2 space-y-2">
-                <button onClick={() => navigate("/students")} className={`w-full flex items-center gap-3 p-2 rounded-lg transition ${activeClass("/students")}`}><UsersIcon className="w-4 h-4"/>All Students</button>
-                <button onClick={() => navigate("/register-student")} className={`w-full flex items-center gap-3 p-2 rounded-lg transition ${activeClass("/register-student")}`}><UserPlusIcon className="w-4 h-4"/>Register Student</button>
-            </div>)}
-        teacher
-        <button onClick={() => toggleMenu("teachers")} className="w-full flex justify-between items-center p-3 rounded-lg text-gray-600 hover:bg-blue-50">
-            <div className="flex gap-3"><AcademicCapIcon className="w-5 h-5"/>Teachers</div>
-            <ChevronDownIcon className={`w-4 h-4 transition ${openMenu === "teachers" ? "rotate-180" : ""}`}/></button>
-        {openMenu === "teachers" && (
-            <div className="ml-8 mt-2 space-y-2">
-                <button onClick={() => navigate("/teacher")}
-                        className={`w-full flex items-center gap-3 p-2 rounded-lg transition ${activeClass("/teacher")}`}><UsersIcon className="w-4 h-4"/>All Teachers
-                </button>
-                <button onClick={() => navigate("/register-teacher")} className={`w-full flex items-center gap-3 p-2 rounded-lg transition ${activeClass("/register-teacher")}`}><UserPlusIcon className="w-4 h-4"/>Register Teacher</button>
-                <button onClick={() =>
-                    navigate("/teacher-allocate")} className={`${activeClass("/teacher-allocate")} w-full flex items-center gap-3 p-2 rounded-lg transition `}><AdjustmentsVerticalIcon className="w-4 h-4"/>Teacher Allocation
-                </button>
-            </div>)}
-        <button onClick={() => toggleMenu("subject")} className="w-full flex justify-between items-center p-3 rounded-lg text-gray-600 hover:bg-blue-50">
-            <div className="flex gap-3"><BookOpenIcon className="w-5 h-5"/>Subject</div>
-            <ChevronDownIcon className={`w-4 h-4 transition ${openMenu === "teachers" ? "rotate-180" : ""}`}/></button>
-        {openMenu === "subject" && (
-            <div className="ml-8 mt-2 space-y-2">
-                <button onClick={() => navigate("/subjects")}
-                        className={`w-full flex items-center gap-3 p-2 rounded-lg transition ${activeClass("/subjects")}`}><BookOpenIcon className="w-4 h-4"/>All Subjects
-                </button>
-                <button onClick={() => navigate("/register-subject")}
-                        className={`w-full flex items-center gap-3 p-2 rounded-lg transition ${activeClass("/register-subject")}`}><BookmarkSquareIcon className="w-4 h-4"/>Add Subject
-                </button>
-            </div>)}
-        <button onClick={() => toggleMenu("syllabus")} className="w-full flex justify-between items-center p-3 rounded-lg text-gray-600 hover:bg-blue-50">
-            <div className="flex gap-3"><PaperClipIcon className="w-5 h-5"/>Syllabus</div>
-            <ChevronDownIcon className={`w-4 h-4 transition ${openMenu === "syllabus" ? "rotate-180" : ""}`}/></button>
-        {openMenu === "syllabus" && (
-            <div className="ml-8 mt-2 space-y-2">
-                <button onClick={() => navigate("/syllabus")}
-                        className={`w-full flex items-center gap-3 p-2 rounded-lg transition ${activeClass("/syllabus")}`}><PaperClipIcon className="w-4 h-4"/>Syllabus
-                </button>
-                <button onClick={() => navigate("/register-syllabus")}
-                        className={`w-full flex items-center gap-3 p-2 rounded-lg transition ${activeClass("/register-syllabus")}`}><BookmarkSquareIcon className="w-4 h-4"/>Add Syllabus
-                </button>
-            </div>)}
-        <button onClick={() => navigate("/class-list")}
-                className={`w-full flex items-center gap-3 p-2 rounded-lg transition ${activeClass("/class-list")}`}><ListBulletIcon className="w-4 h-4"/>Class list
+
+        <button
+          onClick={() => navigate("/orders")}
+          className={`w-full flex items-center gap-3 p-3 rounded-xl transition ${activeClass("/orders")}`}
+        >
+          <ShoppingBagIcon className="w-5 h-5" />
+          Orders List
         </button>
-        <button onClick={() => toggleMenu("fees")} className="w-full flex justify-between items-center p-3 rounded-lg text-gray-600 hover:bg-blue-50">
-            <div className="flex gap-3"><CurrencyDollarIcon className="w-5 h-5"/>Fees</div>
-            <ChevronDownIcon className={`w-4 h-4 transition ${openMenu === "syllabus" ? "rotate-180" : ""}`}/></button>
-        {openMenu === "fees" && (
-            <div className="ml-8 mt-2 space-y-2">
-                <button onClick={() => navigate("/fee-structure")}
-                        className={`w-full flex items-center gap-3 p-2 rounded-lg transition ${activeClass("/fee-structure")}`}><CurrencyDollarIcon className="w-4 h-4"/>Fee Structure
-                </button>
-                <button onClick={() => navigate("/fee-submission")}
-                        className={`w-full flex items-center gap-3 p-2 rounded-lg transition ${activeClass("/fee-submission")}`}><CurrencyDollarIcon className="w-4 h-4"/>Fee Submission
-                </button>
-                <button onClick={() => navigate("/fee-voucher")}
-                        className={`w-full flex items-center gap-3 p-2 rounded-lg transition ${activeClass("/fee-voucher")}`}><CursorArrowRippleIcon className="w-4 h-4"/>Fee Voucher
-                </button>
-            </div>)}
-        <button onClick={() => toggleMenu("admission")} className="w-full flex justify-between items-center p-3 rounded-lg text-gray-600 hover:bg-blue-50">
-            <div className="flex gap-3"><NewspaperIcon className="w-5 h-5"/>Admission</div>
-            <ChevronDownIcon className={`w-4 h-4 transition ${openMenu === "syllabus" ? "rotate-180" : ""}`}/></button>
-        {openMenu === "admission" && (
-            <div className="ml-8 mt-2 space-y-2">
-                <button onClick={() => navigate("/register-student")} className={`w-full flex items-center gap-3 p-2 rounded-lg transition ${activeClass("/register-student")}`}><UserPlusIcon className="w-4 h-4"/>Register Student</button>
-                <button onClick={() => navigate("/register-teacher")} className={`w-full flex items-center gap-3 p-2 rounded-lg transition ${activeClass("/register-teacher")}`}><UserPlusIcon className="w-4 h-4"/>Register Teacher</button>
-            </div>)}
-        <button onClick={() => toggleMenu("exam")} className="w-full flex justify-between items-center p-3 rounded-lg text-gray-600 hover:bg-blue-50">
-            <div className="flex gap-3"><NewspaperIcon className="w-5 h-5"/>Exam</div>
-            <ChevronDownIcon className={`w-4 h-4 transition ${openMenu === "syllabus" ? "rotate-180" : ""}`}/></button>
-        {openMenu === "exam" && (
-            <div className="ml-8 mt-2 space-y-2">
-                <button onClick={() => navigate("/exam-schedule")} className={`w-full flex items-center gap-3 p-2 rounded-lg transition ${activeClass("/exam-schedule")}`}><UserPlusIcon className="w-4 h-4"/>Exam Schedule</button>
-                <button onClick={() => navigate("/exam-result")} className={`w-full flex items-center gap-3 p-2 rounded-lg transition ${activeClass("/exam-result")}`}><UserPlusIcon className="w-4 h-4"/>Exam Result</button>
-            </div>)}*/}
+
+        <button
+          onClick={() => navigate("/review")}
+          className={`w-full flex items-center gap-3 p-3 rounded-xl transition ${activeClass("/review")}`}
+        >
+          <StarIcon className="w-5 h-5" />
+          Submit Review
+        </button>
+
+        {/* --- ADMIN ONLY PAGES --- */}
+        {isAdmin && (
+          <div className="pt-4 mt-4 border-t border-gray-100 dark:border-gray-800">
+            <p className="px-3 mb-2 text-[10px] font-bold text-gray-400 uppercase tracking-wider">
+              Administration
+            </p>
+
+            <button
+              onClick={() => navigate("/add-product")}
+              className={`w-full flex items-center gap-3 p-3 rounded-xl transition ${activeClass("/add-product")}`}
+            >
+              <PlusCircleIcon className="w-5 h-5" />
+              Add Product
+            </button>
+
+            <button
+              onClick={() => navigate("/branches")}
+              className={`w-full flex items-center gap-3 p-3 rounded-xl transition ${activeClass("/branches")}`}
+            >
+              <PlusCircleIcon className="w-5 h-5" />
+              Branches
+            </button>
+
+            <button
+              onClick={() => navigate("/add-branch")}
+              className={`w-full flex items-center gap-3 p-3 rounded-xl transition ${activeClass("/add-branch")}`}
+            >
+              <BuildingOfficeIcon className="w-5 h-5" />
+              Manage Branches
+            </button>
+          </div>
+        )}
+
+        {/* --- BRANCH MANAGER PAGES --- */}
+        {/* {(isAdmin || isBranchManager) && (
+          <div className="pt-4 mt-2">
+            <p className="px-3 mb-2 text-[10px] font-bold text-gray-400 uppercase tracking-wider">
+              Inventory & Staff
+            </p>
+            <button
+              onClick={() => navigate("/inventory")}
+              className={`w-full flex items-center gap-3 p-3 rounded-xl transition ${activeClass("/inventory")}`}
+            >
+              <ClipboardDocumentListIcon className="w-5 h-5" />
+              Stock Control
+            </button>
+
+            <button
+              onClick={() => navigate("/employees")}
+              className={`w-full flex items-center gap-3 p-3 rounded-xl transition ${activeClass("/employees")}`}
+            >
+              <UsersIcon className="w-5 h-5" />
+              Employees
+            </button>
+          </div>
+        )} */}
+      </nav>
     </aside>
   );
 }

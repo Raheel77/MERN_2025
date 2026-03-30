@@ -60,7 +60,7 @@ export default function SignIn() {
         toast.success("Signed in successfully");
 
         // ⬇ Redirect based on role
-        if (userData.role === "admin") navigate("/admin");
+        if (userData.role === "admin") navigate("/add-product");
         else if (userData.role === "branch") navigate("/");
         else navigate("/");
       } else {

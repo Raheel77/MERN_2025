@@ -2,7 +2,7 @@ import { Routes, Route } from "react-router-dom";
 
 // USER
 import ProductList from "./pages/user/ProductList";
-import Order from "./pages/user/OrderForm";
+import Order from "./pages/user/OrderList";
 import Review from "./pages/user/Review";
 
 // ADMIN
@@ -17,6 +17,10 @@ import SignUp from "./components/SignUp";
 import SignIn from "./components/SignIn";
 import Auth_Route_2 from "./ProtecteRoutes/Auth_Route_2";
 import BasicDashboard from "./components/Basic/BasicDashboard";
+import AddProduct from "./pages/admin/AddProduct";
+import PlaceOrder from "./pages/user/OrderList";
+import Orders from "./pages/user/Orders";
+import Branches from "./pages/admin/Branches";
 
 export default function App() {
   return (
@@ -36,6 +40,35 @@ export default function App() {
               </ProtectedRoute>
             }
           />
+          <Route path="/place-order" element={<PlaceOrder />} />
+          <Route path="/orders" element={<Orders />} />
+
+          <Route
+            path="/add-product"
+            element={
+              <ProtectedRoute allowedRoles={["admin"]}>
+                <AddProduct />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/branches"
+            element={
+              <ProtectedRoute allowedRoles={["admin"]}>
+                <Branches />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/add-branch"
+            element={
+              <ProtectedRoute allowedRoles={["admin"]}>
+                <BranchManagement />
+              </ProtectedRoute>
+            }
+          />
+
           <Route
             path="/order:id"
             element={
@@ -52,7 +85,6 @@ export default function App() {
               </ProtectedRoute>
             }
           />
-
           {/* ADMIN */}
           <Route
             path="/admin/dashboard"
@@ -62,7 +94,6 @@ export default function App() {
               </ProtectedRoute>
             }
           />
-
           {/* BRANCH */}
           <Route
             path="/branch/dashboard"
