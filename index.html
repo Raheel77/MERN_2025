@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignment 01 - Jawan Programming</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+        .assignments {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .assignment-card {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 25px;
+            border: 2px solid #e9ecef;
+            transition: all 0.3s ease;
+        }
+        .assignment-card:hover {
+            border-color: #667eea;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.2);
+        }
+        .assignment-card h2 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 20px;
+        }
+        .assignment-card p {
+            color: #666;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        .assignment-card a {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: opacity 0.3s ease;
+        }
+        .assignment-card a:hover {
+            opacity: 0.9;
+        }
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #999;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Assignment 01</h1>
+        <p class="subtitle">JavaScript Programming Assignments</p>
+
+        <div class="assignments">
+            <div class="assignment-card">
+                <h2>Mobile Filter</h2>
+                <p>An interactive mobile phone filtering application. Select a brand and model to view detailed specifications including processor, memory, camera, and battery information.</p>
+                <a href="Assignment-01/mobile-filter.html">View Mobile Filter</a>
+            </div>
+
+            <div class="assignment-card">
+                <h2>Student Marksheet</h2>
+                <p>A student grade calculator that computes total marks, percentage, and assigns grades based on performance across multiple subjects.</p>
+                <a href="Assignment-01/marksheet.html">View Marksheet</a>
+            </div>
+        </div>
+
+        <footer>
+            Jawan Programming Assignment
+        </footer>
+    </div>
+</body>
+</html>
